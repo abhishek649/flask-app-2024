@@ -1,1 +1,7 @@
-entrypoint: gunicorn -b :$PORT main:app
+runtime: python312
+api_version:1
+threadsafe:true
+handlers:
+  -url: /.*
+  script: app.app
+
