@@ -4,6 +4,4 @@ threadsafe:true
 handlers:
   -url: /.*
   script: app.app
-libraries:
--name:flask
- version:3.0.3
+
