@@ -1,15 +1,4 @@
 runtime: python312
-handlers:
-# The root URL (/) is handled by the webapp handler in the home.py script.
-# No other URLs match this pattern.
-- url: /
-  script: app.app
-- url: /templates
-  static_dir: templates
-- url: /css
-  static_dir: static/css
-# The URL /index.html is also handled by the home.py script.
-- url: /index\.html
-  script: app.app
+
 
 
