@@ -1,16 +1,15 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template # type: ignore
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    target = os.environ.get('TARGET', 'World')
-    return 'Hello {}!\n'.format(target)
+    return render_template("index.html")
 @app.route('/contactus')
 def contact():
-    return 'Here is my contact!!'
+    return render_template("contact.html")
 @app.route('/aboutus')
 def aboutus():
     return 'We are an analytics firm working since 2024.'
