@@ -3,7 +3,7 @@ api_version:1
 threadsafe:true
 handlers:
   -url: /.*
-  script: main.app
+  script: app.app
 libraries:
 -name:flask
  version:3.0.3
