@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>My Flask App</title> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> 
+</head> 
+<body> 
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contactus">Contactus</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </li>
+      </ul>
+      
+      <h1>We are an analytics firm working since 2024.</h1>
+      
+</body> 
+</html> 
