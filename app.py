@@ -1,8 +1,8 @@
 import os
 
 from flask import Flask, render_template # type: ignore
-from google.cloud import pubsub_v1
 from google.cloud import storage
+from utils.sendpubsub import send_message
 
 app = Flask(__name__)
 
@@ -18,16 +18,10 @@ def aboutus():
 @app.route('/callpubsub')
 def pubsub():
     try:
-        publisher = pubsub_v1.PublisherClient()
-        topic_name = 'projects/{project_id}/topics/{topic}'.format(
-        project_id='challenge-296807',
-        topic='pubsub-to-bq',  # Set this to something appropriate.
-        )
-        publisher.create_topic(name=topic_name)
-        future = publisher.publish(topic_name, b'My first message!', spam='eggs')
-        result=future.result()
-        print(result)
-        return result
+        project_id = "challenge-296807"
+        topic_id = "pubsub-to-bq"
+        res=send_message(project_id,topic_id)
+        return res
     except Exception as e:
         print("eroor ocured",e)
 
