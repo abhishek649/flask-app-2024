@@ -16,15 +16,18 @@ def aboutus():
     return render_template("aboutus.html")
 @app.route('/callpubsub')
 def pubsub():
-    publisher = pubsub_v1.PublisherClient()
-    topic_name = 'projects/{project_id}/topics/{topic}'.format(
-    project_id='challenge-296807',
-    topic='pubsub-to-bq',  # Set this to something appropriate.
-    )
-    publisher.create_topic(name=topic_name)
-    future = publisher.publish(topic_name, b'My first message!', spam='eggs')
-    result=future.result()
-    return result
+    try:
+        publisher = pubsub_v1.PublisherClient()
+        topic_name = 'projects/{project_id}/topics/{topic}'.format(
+        project_id='challenge-296807',
+        topic='pubsub-to-bq',  # Set this to something appropriate.
+        )
+        publisher.create_topic(name=topic_name)
+        future = publisher.publish(topic_name, b'My first message!', spam='eggs')
+        result=future.result()
+        return result
+    except Exception as e:
+        print("eroor ocured",e)
 
 
 if __name__ == "__main__":
