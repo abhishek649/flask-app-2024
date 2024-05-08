@@ -23,7 +23,8 @@ def pubsub():
     )
     publisher.create_topic(name=topic_name)
     future = publisher.publish(topic_name, b'My first message!', spam='eggs')
-    future.result()
+    result=future.result()
+    return result
 
 
 if __name__ == "__main__":
