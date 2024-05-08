@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, render_template # type: ignore
 from google.cloud import pubsub_v1
+from google.cloud import storage
 
 app = Flask(__name__)
 
@@ -25,6 +26,7 @@ def pubsub():
         publisher.create_topic(name=topic_name)
         future = publisher.publish(topic_name, b'My first message!', spam='eggs')
         result=future.result()
+        print(result)
         return result
     except Exception as e:
         print("eroor ocured",e)
