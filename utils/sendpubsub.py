@@ -19,7 +19,8 @@ def send_message(project_id,topic_id):
         futures.wait(publish_futures, return_when=futures.ALL_COMPLETED)
 
         logging.info(f"Published messages with error handler to {topic_path}.")
-        
+        return f"Published messages with error handler to {topic_path}."
+
 def get_callback(
     publish_future: pubsub_v1.publisher.futures.Future, data: str
 ) -> Callable[[pubsub_v1.publisher.futures.Future], None]:
