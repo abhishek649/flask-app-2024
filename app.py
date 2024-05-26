@@ -24,6 +24,10 @@ def pubsub():
         return res
     except Exception as e:
         print("eroor ocured",e)
+@app.route('/processfile')
+def processfile():
+    return render_template("fileupload.html")
+
 
 
 if __name__ == "__main__":
