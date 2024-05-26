@@ -13,7 +13,7 @@ CONFIG_FOLDER = cwd+"/config/"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "config/creds.json"
 app.config['CONFIG_FOLDER'] = CONFIG_FOLDER
 app.config['UPLOAD_FOLDER'] = cwd+"/uploads/"
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','pdf'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','pdf','xlsx','csv'])
 @app.route('/')
 def hello_world():
     return render_template("index.html")
@@ -44,7 +44,8 @@ def upload_document_files():
         if request.method == 'POST':
             pdf_file=request.files['pdf-file']
             if pdf_file.filename == '':
-                return render_template("fileupload.html")
+                msg="File name should not be blank"
+                return redirect(url_for('processfile',msg=msg))
             else:
                 #project_id = 'challenge-296807'
                 bucket_name = 'myawesomeapp_upload'
@@ -55,6 +56,9 @@ def upload_document_files():
                 if pdf_file and allowed_file(pdf_file.filename):
                     filename = secure_filename(pdf_file.filename)
                     pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                else:
+                    msg="This type of file is not allowed to upload"
+                    return redirect(url_for('processfile',msg=msg))
                 blob = bucket.blob("uploads/"+filename)
                 with open('uploads/'+filename, 'rb') as file:
                     blob.upload_from_file(file)
