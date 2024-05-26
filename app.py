@@ -2,11 +2,15 @@ import os
 
 from flask import Flask, render_template,request,redirect, url_for # type: ignore
 from google.cloud import storage
+
 from utils.sendpubsub import send_message
 import logging
 
 app = Flask(__name__)
 cwd = os.getcwd()
+#print(cwd)
+CONFIG_FOLDER = cwd+"/config/"
+app.config['CONFIG_FOLDER'] = CONFIG_FOLDER
 bucket_name='myawesomeapp_upload'
 destination_blob_name='myawsomeapp.pdf'
 @app.route('/')
@@ -39,11 +43,10 @@ def upload_document_files():
             if pdf_file.filename == '':
                 return render_template("fileupload.html")
             else:
-                storage_client = storage.Client()
-                bucket = storage_client.bucket(bucket_name)
+                storage_client = storage.Client.from_service_account_json(app.config['CONFIG_FOLDER']+'/creds.json')
+                bucket = storage_client.get_bucket(bucket_name)
                 blob = bucket.blob(destination_blob_name)
-                generation_match_precondition = 0
-                blob.upload_from_filename(pdf_file, if_generation_match=generation_match_precondition)
+                blob.upload_from_filename(pdf_file)
                 
                 
 
