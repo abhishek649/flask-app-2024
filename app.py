@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template,request # type: ignore
+from flask import Flask, render_template,request,redirect, url_for # type: ignore
 from google.cloud import storage
 from utils.sendpubsub import send_message
 import logging
@@ -44,8 +44,13 @@ def upload_document_files():
                 blob = bucket.blob(destination_blob_name)
                 generation_match_precondition = 0
                 blob.upload_from_filename(pdf_file, if_generation_match=generation_match_precondition)
+                
+                
 
             logging.info(f"File {pdf_file} uploaded to {destination_blob_name}.")
+            msg = 'File upload success !'
+            return render_template('fileupload.html', msg = msg)
+            
 
     except Exception as e:
         logging.info("error to upload file",e)
