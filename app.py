@@ -47,12 +47,13 @@ def upload_document_files():
                 bucket = storage_client.get_bucket(bucket_name)
                 blob = bucket.blob(destination_blob_name)
                 blob.upload_from_filename(pdf_file)
+                logging.info(f"File {pdf_file} uploaded to {destination_blob_name}.")
+                msg = 'File upload success !'
+                return blob.public_url
                 
                 
 
-            logging.info(f"File {pdf_file} uploaded to {destination_blob_name}.")
-            msg = 'File upload success !'
-            return render_template('fileupload.html', msg = msg)
+            
             
 
     except Exception as e:
