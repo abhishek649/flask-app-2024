@@ -23,6 +23,9 @@ def contact():
 @app.route('/aboutus')
 def aboutus():
     return render_template("aboutus.html")
+@app.route('/reports')
+def aboutus():
+    return render_template("reports.html")
 @app.route('/callpubsub')
 def pubsub():
     try:
