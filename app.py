@@ -4,7 +4,7 @@ from flask import Flask, render_template,request,redirect, url_for # type: ignor
 from google.cloud import storage
 from werkzeug.utils import secure_filename # type: ignore
 from utils.sendpubsub import send_message
-import logging
+import logging 
 
 app = Flask(__name__)
 cwd = os.getcwd()
