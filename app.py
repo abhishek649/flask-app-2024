@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template,request,redirect, url_for # type: ignore
 from google.cloud import storage
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename # type: ignore
 from utils.sendpubsub import send_message
 import logging
 
@@ -47,21 +47,23 @@ def upload_document_files():
                 msg="File name should not be blank"
                 return redirect(url_for('processfile',msg=msg))
             else:
-                #project_id = 'challenge-296807'
-                bucket_name = 'myawesomeapp_upload'
+                project_id = 'todo-219011'
+                bucket_name = 'flask_app'
                 storage_client = storage.Client()
                 bucket = storage_client.bucket(bucket_name)
-                #bucket.location = 'us'
-                #bucket.create(project=project_id,location="us")
+                bucket.location = 'us'
+                bucket.create(project=project_id,location="us")
                 if pdf_file and allowed_file(pdf_file.filename):
                     filename = secure_filename(pdf_file.filename)
+                    #filename = pdf_file.filename
+                    print(pdf_file.filename)
                     pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 else:
                     msg="This type of file is not allowed to upload"
                     return redirect(url_for('processfile',msg=msg))
-                blob = bucket.blob("uploads/"+filename)
-                with open('uploads/'+filename, 'rb') as file:
-                    blob.upload_from_file(file)
+                #blob = bucket.blob("uploads/"+filename)
+                #with open('uploads/'+filename, 'rb') as file:
+                    #blob.upload_from_file(file)
                 msg="File has been uploaded successfully!"
                 return redirect(url_for('processfile',msg=msg))
                
