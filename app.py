@@ -24,7 +24,7 @@ def contact():
 def aboutus():
     return render_template("aboutus.html")
 @app.route('/reports')
-def aboutus():
+def reports():
     return render_template("reports.html")
 @app.route('/callpubsub')
 def pubsub():
